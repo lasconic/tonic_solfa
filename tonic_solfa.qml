@@ -31,13 +31,19 @@ MuseScore {
           var tpcNames = "FCGDAEB";
           var name = tpcNames[(note.tpc + 1) % 7];
           var scale = scales[curKey+7];
+          var nameDiff = names.indexOf(name) - names.indexOf(scale);
+          // TODO: fix octave computation in function of scale
           var octave = Math.floor(note.pitch / 12) - 1;
           var oString = ""
           if (octave == 4)
                 oString = "'"
+          else if (octave == 5)
+                oString = "''"
           else if (octave == 2)
                 oString = "╷"
-          return degrees[(names.indexOf(name) - names.indexOf(scale) +28)%7] + oString;
+          else if (octave == 1)
+                oString = "╷╷"
+          return degrees[(nameDiff+28)%7] + oString;
 
       }
 
